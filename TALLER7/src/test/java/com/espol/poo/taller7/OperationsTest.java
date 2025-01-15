@@ -81,5 +81,19 @@ public class OperationsTest {
         assertNotEquals(expectedResult, result);
 
     }
-    
+    @Test
+    @DisplayName("Test que verifica que la solución de una fórmula de multiplicación es correcta")
+    void testSolveMultiplication() {
+    String formula = "4*6";
+    String result1 = Operations.Solve(formula);
+    assertEquals("4*6=24", result1, "La solución de 4*6 debe ser 24.");
+    }
+
+    @Test
+    @DisplayName("Test que verifica que la solución de una fórmula de división es correcta")
+    void testSolveDivision() {
+    String formula = "8/2";
+    String result1 = Operations.Solve(formula);
+    assertEquals("8/2=4", result1, "La solución de 8/2 debe ser 4.");
+    }
 }
