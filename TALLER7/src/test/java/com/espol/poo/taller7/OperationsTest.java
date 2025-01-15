@@ -79,7 +79,22 @@ public class OperationsTest {
 
         // Verificamos que el resultado calculado sea el esperado
         assertNotEquals(expectedResult, result);
+        
+    }
+    @Test
+    @DisplayName("Test que verifica que la solución de una fórmula de suma es correcta")
+    void testSolveAddition() {
+        String formula = "3+5";
+        String result = Operations.Solve(formula);
+        assertEquals("3+5=8", result, "La solución de 3+5 debe ser 8.");
+    }
 
+    @Test
+    @DisplayName("Test que verifica que la solución de una fórmula de resta es correcta")
+    void testSolveSubtraction() {
+        String formula = "8-3";
+        String result = Operations.Solve(formula);
+        assertEquals("8-3=5", result, "La solución de 8-3 debe ser 5.");
     }
     @Test
     @DisplayName("Test que verifica que la solución de una fórmula de multiplicación es correcta")
