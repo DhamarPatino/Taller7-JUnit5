@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
 
 /**
  *
@@ -68,18 +69,22 @@ public class OperationsTest {
     public void testMakeFormulaValido(){
         assertTrue(result.matches("\\d+([+\\-*/]\\d+)+"), "La fórmula generada no tiene el formato esperado");
     }
+    
+    @Test
+    @DisplayName("Test que verifica que la fórmula con varias operaciones es evaluada correctamente")
+    void testSolveMultipleOperations() {
+        String formula = "3+5*2";
+        String result = Operations.Solve(formula);
+        assertEquals("3+5*2=13", result, "La solución de 3+5*2 debe ser 13.");
+    }
 
     @Test
-    public void testSolve() {
-        System.out.println("testSolve");
-
-        // Probamos con una fórmula sencilla: "3+2*2"
-        String formula = "3+2*2";
-        String expectedResult = "3+2*2=7";  // El resultado esperado es 7 (por la precedencia de multiplicación)
-
-        // Verificamos que el resultado calculado sea el esperado
-        assertNotEquals(expectedResult, result);
-
+    @DisplayName("Test que verifica que la solución de una fórmula con división por cero lance una excepción")
+    void testSolveDivisionByZero() {
+        String formula = "5/0";
+        assertThrows(ArithmeticException.class, () -> {
+        Operations.Solve(formula);
+        }, "La división por cero debe lanzar una ArithmeticException.");
     }
-    
 }
+
