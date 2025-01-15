@@ -16,6 +16,7 @@ public class CalculatorSMP {
      */
     public static void main(String[] args) {
         System.out.println("Hola mundo");
+        System.out.println("hellous soy marcito ");
         String question = Operations.MakeFormula();
         System.out.println(question);
         String ret = Operations.Solve(question);
