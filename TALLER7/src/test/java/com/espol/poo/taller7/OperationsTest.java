@@ -86,5 +86,48 @@ public class OperationsTest {
         Operations.Solve(formula);
         }, "La división por cero debe lanzar una ArithmeticException.");
     }
+    
+    @Test
+    public void testSolve() {
+        System.out.println("testSolve");
+
+        // Probamos con una fórmula sencilla: "3+2*2"
+        String formula = "3+2*2";
+        String expectedResult = "3+2*2=7";  // El resultado esperado es 7 (por la precedencia de multiplicación)
+
+        // Verificamos que el resultado calculado sea el esperado
+        assertNotEquals(expectedResult, result);
+        
+    }
+    @Test
+    @DisplayName("Test que verifica que la solución de una fórmula de suma es correcta")
+    void testSolveAddition() {
+        String formula = "3+5";
+        String result = Operations.Solve(formula);
+        assertEquals("3+5=8", result, "La solución de 3+5 debe ser 8.");
+    }
+
+    @Test
+    @DisplayName("Test que verifica que la solución de una fórmula de resta es correcta")
+    void testSolveSubtraction() {
+        String formula = "8-3";
+        String result = Operations.Solve(formula);
+        assertEquals("8-3=5", result, "La solución de 8-3 debe ser 5.");
+    }
+    @Test
+    @DisplayName("Test que verifica que la solución de una fórmula de multiplicación es correcta")
+    void testSolveMultiplication() {
+        String formula = "4*6";
+        String result1 = Operations.Solve(formula);
+        assertEquals("4*6=24", result1, "La solución de 4*6 debe ser 24.");
+    }
+
+    @Test
+    @DisplayName("Test que verifica que la solución de una fórmula de división es correcta")
+    void testSolveDivision() {
+        String formula = "8/2";
+        String result1 = Operations.Solve(formula);
+        assertEquals("8/2=4", result1, "La solución de 8/2 debe ser 4.");
+    }
 }
 

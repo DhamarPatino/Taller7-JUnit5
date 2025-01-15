@@ -41,7 +41,7 @@ public class Operations {
                     tempStack.push(formula.substring(k));
                 }
                 else {
-                    if(k < j){
+                    if(k < j){ 
                         tempStack.push(formula.substring(k, j + 1));
                     }
                     if(operatorStack.empty()){
