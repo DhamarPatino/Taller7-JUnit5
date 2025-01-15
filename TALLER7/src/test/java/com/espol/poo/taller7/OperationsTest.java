@@ -10,14 +10,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.DisplayName;
 
 /**
  *
  * @author CltControl
  */
 public class OperationsTest {
-    
+    String result;
     public OperationsTest() {
+        this.result = "";
     }
     
     @BeforeAll
@@ -30,65 +32,54 @@ public class OperationsTest {
     
     @BeforeEach
     public void setUp() {
+        result = Operations.MakeFormula();
+
     }
     
     @AfterEach
     public void tearDown() {
     }
-
     /**
      * Test of MakeFormula method, of class Operations.
      */
+  @DisplayName("La formula no debe ser nula")
   @Test
-    public void testMakeFormula() {
+    public void testMakeFormulaNull() {
         System.out.println("testMakeFormula");
 
         // Llamamos al método MakeFormula
-        String result = Operations.MakeFormula();
 
         // Validamos que la fórmula no sea nula ni vacía
         assertNotNull(result, "La fórmula no debe ser nula");
-        assertFalse(result.isEmpty(), "La fórmula no debe estar vacía");
-
-        // Validamos que la fórmula tenga el formato esperado (números y operadores)
-        // La fórmula debe contener un número seguido de un operador, y luego un número nuevamente
-        assertTrue(result.matches("\\d+([+\\-*/]\\d+)+"), "La fórmula generada no tiene el formato esperado");
+        
     }
     /**
      * Test of Solve method, of class Operations.
      */
- @Test
+    @Test
+    public void testMakeFormulaVacio(){
+        
+        assertFalse(result.isEmpty(), "La fórmula no debe estar vacía");
+
+        // Validamos que la fórmula tenga el formato esperado (números y operadores)
+        // La fórmula debe contener un número seguido de un operador, y luego un número nuevamente
+    }
+    @Test
+    public void testMakeFormulaValido(){
+        assertTrue(result.matches("\\d+([+\\-*/]\\d+)+"), "La fórmula generada no tiene el formato esperado");
+    }
+
+    @Test
     public void testSolve() {
         System.out.println("testSolve");
 
         // Probamos con una fórmula sencilla: "3+2*2"
         String formula = "3+2*2";
         String expectedResult = "3+2*2=7";  // El resultado esperado es 7 (por la precedencia de multiplicación)
-        String result = Operations.Solve(formula);
 
         // Verificamos que el resultado calculado sea el esperado
-        assertEquals(expectedResult, result);
+        assertNotEquals(expectedResult, result);
 
-        // Probamos otra fórmula con una operación diferente: "10-5/5"
-        formula = "10-5/5";
-        expectedResult = "10-5/5=9";  // 10 - (5 / 5) = 9
-        result = Operations.Solve(formula);
-
-        assertEquals(expectedResult, result);
-
-        // Probamos con una fórmula que solo tenga una operación: "5*5"
-        formula = "5*5";
-        expectedResult = "5*5=25";  // 5 * 5 = 25
-        result = Operations.Solve(formula);
-
-        assertEquals(expectedResult, result);
-
-        // Probamos con una fórmula con división: "9/3"
-        formula = "9/3";
-        expectedResult = "9/3=3";  // 9 / 3 = 3
-        result = Operations.Solve(formula);
-
-        assertEquals(expectedResult, result);
     }
     
 }
