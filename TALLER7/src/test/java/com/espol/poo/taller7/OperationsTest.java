@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  *
@@ -70,62 +71,63 @@ public class OperationsTest {
         assertTrue(result.matches("\\d+([+\\-*/]\\d+)+"), "La fórmula generada no tiene el formato esperado");
     }
     
-    @Test
     @DisplayName("Test que verifica que la fórmula con varias operaciones es evaluada correctamente")
-    void testSolveMultipleOperations() {
-        String formula = "3+5*2";
+    @ParameterizedTest
+    @ValueSource(strings = {"3+5*2"})
+    void testSolveMultipleOperations(String formula) {
         String result = Operations.Solve(formula);
         assertEquals("3+5*2=13", result, "La solución de 3+5*2 debe ser 13.");
     }
 
-    @Test
     @DisplayName("Test que verifica que la solución de una fórmula con división por cero lance una excepción")
-    void testSolveDivisionByZero() {
-        String formula = "5/0";
+    @ParameterizedTest
+    @ValueSource(strings = {"5/0"})
+    void testSolveDivisionByZero(String formula) {
         assertThrows(ArithmeticException.class, () -> {
         Operations.Solve(formula);
         }, "La división por cero debe lanzar una ArithmeticException.");
     }
     
-    @Test
+    @DisplayName("Test que verifica que la solución de una fórmula con división por cero lance una excepción")
+    @ParameterizedTest
+    @ValueSource(strings = {"3+2*2"})
     public void testSolve() {
-        System.out.println("testSolve");
-
         // Probamos con una fórmula sencilla: "3+2*2"
-        String formula = "3+2*2";
         String expectedResult = "3+2*2=7";  // El resultado esperado es 7 (por la precedencia de multiplicación)
 
         // Verificamos que el resultado calculado sea el esperado
         assertNotEquals(expectedResult, result);
         
     }
-    @Test
+
     @DisplayName("Test que verifica que la solución de una fórmula de suma es correcta")
-    void testSolveAddition() {
-        String formula = "3+5";
+    @ParameterizedTest
+    @ValueSource(strings = {"3+5"})
+    void testSolveAddition(String formula) {
         String result = Operations.Solve(formula);
         assertEquals("3+5=8", result, "La solución de 3+5 debe ser 8.");
     }
 
-    @Test
     @DisplayName("Test que verifica que la solución de una fórmula de resta es correcta")
-    void testSolveSubtraction() {
-        String formula = "8-3";
+    @ParameterizedTest
+    @ValueSource(strings = {"8-3"})
+    void testSolveSubtraction(String formula) {
         String result = Operations.Solve(formula);
         assertEquals("8-3=5", result, "La solución de 8-3 debe ser 5.");
     }
-    @Test
+    
     @DisplayName("Test que verifica que la solución de una fórmula de multiplicación es correcta")
-    void testSolveMultiplication() {
-        String formula = "4*6";
+    @ParameterizedTest
+    @ValueSource(strings = {"4*6"})
+    void testSolveMultiplication(String formula) {
         String result1 = Operations.Solve(formula);
         assertEquals("4*6=24", result1, "La solución de 4*6 debe ser 24.");
     }
 
-    @Test
     @DisplayName("Test que verifica que la solución de una fórmula de división es correcta")
-    void testSolveDivision() {
-        String formula = "8/2";
+    @ParameterizedTest
+    @ValueSource(strings = {"8/2"})
+    void testSolveDivision(String formula) {
         String result1 = Operations.Solve(formula);
         assertEquals("8/2=4", result1, "La solución de 8/2 debe ser 4.");
     }
